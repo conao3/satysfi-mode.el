@@ -138,7 +138,9 @@
          "type" "constraint" "val" "direct" "of"
          "module" "struct" "sig" "end"
          "before" "while" "do"
-         "controls" "cycle")
+         "controls" "cycle"
+         "command" "inline-cmd" "block-cmd" "math-cmd"
+         "not" "mod" "true" "false")
        'symbols)
      . font-lock-keyword-face)
     (,(regexp-opt
