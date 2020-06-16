@@ -110,6 +110,14 @@
 
 
 
+(defvar satysfi-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?% "<" table)
+    (modify-syntax-entry ?\r ">" table)
+    (modify-syntax-entry ?\n ">" table)
+    table)
+  "Syntax table for `satysfi-mode'.")
+
 (defvar satysfi-mode-font-lock-keywords
   `((,(regexp-opt
        '("let" "let-rec" "let-mutable" "let-inline" "let-block" "let-math" "in" "and"
@@ -135,6 +143,7 @@
 
 (define-derived-mode satysfi-mode prog-mode "Satysfi"
   "Major mode for editing satysfi files."
+  (set-syntax-table satysfi-mode-syntax-table)
   (setq font-lock-defaults '(satysfi-mode-font-lock-keywords)))
 
 ;;;###autoload
