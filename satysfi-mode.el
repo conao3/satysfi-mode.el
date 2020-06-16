@@ -148,9 +148,9 @@
        'symbols)
      . font-lock-variable-name-face)
     ("\\(\\\\\\(?:\\\\\\\\\\)*[a-zA-Z0-9\\-]+\\)\\>"
-     (1 'satysfi-row-command-face t))
+     (1 'satysfi-row-command-face))
     ("\\(\\+[a-zA-Z0-9\\-]+\\)\\>"
-     (1 'satysfi-column-command-face t))
+     (1 'satysfi-column-command-face))
     (,(rx (group "@require") ":" (* space) (group (* word)))
      (1 'satysfi-preprocessor-face)
      (2 'satysfi-header-require-face))
@@ -161,7 +161,7 @@
      (1 'satysfi-preprocessor-face)
      (2 'satysfi-header-require-face))
     ("\\(\\\\\\(?:@\\|`\\|\\*\\| \\|%\\||\\|;\\|{\\|}\\|\\\\\\)\\)"
-     (1 'satysfi-escaped-character t))))
+     (1 'satysfi-escaped-character))))
 
 (define-derived-mode satysfi-mode prog-mode "Satysfi"
   "Major mode for editing satysfi files."
