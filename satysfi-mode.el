@@ -36,52 +36,52 @@
 (defface satysfi-comment-face
   '((t :inherit font-lock-comment-face))
   "Face name to use for comments."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-comment-delimiter-face
   '((t :inherit font-lock-comment-delimiter-face))
   "Face name to use for comment delimiters."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-string-face
   '((t :inherit font-lock-string-face))
   "Face name to use for strings."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-doc-face
   '((t :inherit font-lock-doc-face))
   "Face name to use for documentation."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-keyword-face
   '((t :inherit font-lock-keyword-face))
   "Face name to use for keywords."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-builtin-face
   '((t :inherit font-lock-builtin-face))
   "Face name to use for builtins."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-function-name-face
   '((t :inherit font-lock-function-name-face))
   "Face name to use for function names."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-variable-name-face
   '((t :inherit font-lock-variable-name-face))
   "Face name to use for variable names."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-type-face
   '((t :inherit font-lock-type-face))
   "Face name to use for type and class names."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-constant-face
   '((t :inherit font-lock-constant-face))
   "Face name to use for constant and label names."
- :group 'satysfi)
+  :group 'satysfi)
 
 (defface satysfi-warning-face
   '((t :inherit font-lock-warning-face))
