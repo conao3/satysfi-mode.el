@@ -88,10 +88,54 @@
   "Face name to use for things that should stand out."
  :group 'satysfi)
 
+(defface satysfi-row-command-face
+  '((t (:foreground "#8888ff" :background "dark")))
+  "SATySFi row command")
+
+(defface satysfi-column-command-face
+  '((t (:foreground "#ff8888" :background "dark")))
+  "SATySFi column command")
+
+(defface satysfi-var-in-string-face
+  '((t (:foreground "#44ff88" :background "dark")))
+  "SATySFi variable in string")
+
+(defface satysfi-escaped-character
+  '((t (:foreground "#cc88ff" :background "dark")))
+  "SATySFi escaped character")
+
+(defface satysfi-literal-area
+  '((t (:foreground "#ffff44" :background "dark")))
+  "SATySFi literal area")
+
 
 
+(defvar satysfi-mode-font-lock-keywords
+  `((,(regexp-opt
+       '("let" "let-rec" "let-mutable" "let-inline" "let-block" "let-math" "in" "and"
+         "match" "with" "when" "as" "if" "then" "else" "fun"
+         "type" "constraint" "val" "direct" "of"
+         "module" "struct" "sig" "end"
+         "before" "while" "do"
+         "controls" "cycle")
+       'symbols)
+     . font-lock-keyword-face)
+    (,(regexp-opt
+       '("gnu" "melpa-stable" "melpa" "org")
+       'symbols)
+     . font-lock-variable-name-face)
+    ("\\(\\\\\\(?:\\\\\\\\\\)*[a-zA-Z0-9\\-]+\\)\\>"
+     (1 'satysfi-row-command-face t))
+    ("\\(\\+[a-zA-Z0-9\\-]+\\)\\>"
+     (1 'satysfi-column-command-face t))
+    ("\\(@[a-z][0-9A-Za-z\\-]*\\)\\>"
+     (1 'satysfi-var-in-string-face t))
+    ("\\(\\\\\\(?:@\\|`\\|\\*\\| \\|%\\||\\|;\\|{\\|}\\|\\\\\\)\\)"
+     (1 'satysfi-escaped-character t))))
+
 (define-derived-mode satysfi-mode prog-mode "Satysfi"
-  "Major mode for editing satysfi files.")
+  "Major mode for editing satysfi files."
+  (setq font-lock-defaults '(satysfi-mode-font-lock-keywords)))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.satyh?\\'" . satysfi-mode))
