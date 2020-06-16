@@ -86,7 +86,12 @@
 (defface satysfi-warning-face
   '((t :inherit font-lock-warning-face))
   "Face name to use for things that should stand out."
- :group 'satysfi)
+  :group 'satysfi)
+
+(defface satysfi-preprocessor-face
+  '((t :inherit font-lock-preprocessor-face))
+  "Font Lock mode face used to highlight preprocessor directives."
+  :group 'satysfi)
 
 (defface satysfi-row-command-face
   '((t (:foreground "#8888ff" :background "dark")))
@@ -137,7 +142,7 @@
     ("\\(\\+[a-zA-Z0-9\\-]+\\)\\>"
      (1 'satysfi-column-command-face t))
     ("\\(@[a-z][0-9A-Za-z\\-]*\\)\\>"
-     (1 'satysfi-var-in-string-face t))
+     (1 'satysfi-preprocessor-face t))
     ("\\(\\\\\\(?:@\\|`\\|\\*\\| \\|%\\||\\|;\\|{\\|}\\|\\\\\\)\\)"
      (1 'satysfi-escaped-character t))))
 
