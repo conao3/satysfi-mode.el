@@ -33,6 +33,19 @@
   :group 'convenience
   :link '(url-link :tag "Github" "https://github.com/conao3/satysfi-mode.el"))
 
+(defface satysfi-preprocessor-face
+  '((t :inherit font-lock-preprocessor-face))
+  "Font Lock mode face used to highlight preprocessor directives."
+  :group 'satysfi)
+
+(defface satysfi-header-require-face
+  '((t :inherit font-lock-string-face))
+  "Face for header directives (@require).")
+
+(defface satysfi-header-import-face
+  '((t :inherit font-lock-string-face))
+  "Face for header directives (@import).")
+
 (defface satysfi-comment-face
   '((t :inherit font-lock-comment-face))
   "Face name to use for comments."
@@ -88,11 +101,6 @@
   "Face name to use for things that should stand out."
   :group 'satysfi)
 
-(defface satysfi-preprocessor-face
-  '((t :inherit font-lock-preprocessor-face))
-  "Font Lock mode face used to highlight preprocessor directives."
-  :group 'satysfi)
-
 (defface satysfi-row-command-face
   '((t (:foreground "#8888ff" :background "dark")))
   "SATySFi row command")
@@ -141,8 +149,15 @@
      (1 'satysfi-row-command-face t))
     ("\\(\\+[a-zA-Z0-9\\-]+\\)\\>"
      (1 'satysfi-column-command-face t))
-    ("\\(@[a-z][0-9A-Za-z\\-]*\\)\\>"
-     (1 'satysfi-preprocessor-face t))
+    (,(rx (group "@require") ":" (* space) (group (* word)))
+     (1 'satysfi-preprocessor-face)
+     (2 'satysfi-header-require-face))
+    (,(rx (group "@import") ":" (* space) (group (* word)))
+     (1 'satysfi-preprocessor-face)
+     (2 'satysfi-header-import-face))
+    (,(rx (group "@" (* word)) ":" (* space) (group (* word)))
+     (1 'satysfi-preprocessor-face)
+     (2 'satysfi-header-require-face))
     ("\\(\\\\\\(?:@\\|`\\|\\*\\| \\|%\\||\\|;\\|{\\|}\\|\\\\\\)\\)"
      (1 'satysfi-escaped-character t))))
 
