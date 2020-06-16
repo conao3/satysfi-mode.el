@@ -33,6 +33,14 @@
   :group 'convenience
   :link '(url-link :tag "Github" "https://github.com/conao3/satysfi-mode.el"))
 
+(define-derived-mode satysfi-mode prog-mode "Satysfi"
+  "Major mode for editing satysfi files.")
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.satyh?\\'" . satysfi-mode))
+;;;###autoload
+(add-to-list 'interpreter-mode-alist '("saty\\(h\\|sfi\\)?" . satysfi-mode))
+
 (provide 'satysfi-mode)
 
 ;; Local Variables:
