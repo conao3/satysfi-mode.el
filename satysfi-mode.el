@@ -167,7 +167,8 @@
   "Major mode for editing satysfi files."
   (set-syntax-table satysfi-mode-syntax-table)
   (setq-local font-lock-defaults '(satysfi-mode-font-lock-keywords))
-  (setq-local comment-start "%"))
+  (setq-local comment-start "%")
+  (setq-local electric-indent-chars '(?\n ?{ ?} ?\[ ?\] ?\( ?\))))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.satyh?\\'" . satysfi-mode))
