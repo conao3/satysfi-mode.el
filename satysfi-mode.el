@@ -163,7 +163,7 @@
     ("\\(\\\\\\(?:@\\|`\\|\\*\\| \\|%\\||\\|;\\|{\\|}\\|\\\\\\)\\)"
      (1 'satysfi-escaped-character))))
 
-(define-derived-mode satysfi-mode prog-mode "Satysfi"
+(define-derived-mode satysfi-mode prog-mode "SATySFi"
   "Major mode for editing satysfi files."
   (set-syntax-table satysfi-mode-syntax-table)
   (setq-local font-lock-defaults '(satysfi-mode-font-lock-keywords))
