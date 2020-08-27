@@ -28,6 +28,8 @@
 
 ;;; Code:
 
+(require 'smie)
+
 (defgroup satysfi nil
   "Major mode for editing satysfi files."
   :group 'convenience
@@ -123,6 +125,75 @@
 
 
 
+(defconst satysfi-smie-grammar
+  (smie-prec2->grammar
+   (smie-bnf->prec2
+    '((id)
+      ;; (inst (exp))
+      ;; (exp (exp "+" exp))
+      ;; (inst ("begin" insts "end")
+      ;;       ("if" exp "then" inst "else" inst)
+      ;;       (id ":=" exp)
+      ;;       (exp))
+      ;; (insts (insts ";" insts) (inst))
+      ;; (exp (exp "+" exp)
+      ;;      (exp "*" exp)
+      ;;      ("(" exps ")"))
+      ;; (exps (exps "," exps) (exp))
+      )
+    ;; '((assoc ";"))
+    ;; '((assoc ","))
+    ;; '((assoc "+") (assoc "*"))
+    )))
+
+;; (defun satysfi-smie-match-group ()
+;;   (/ (position-if-not 'null (cddr (match-data))) 2))
+
+(defun satysfi-smie-forward-token ()
+  "Skip forward as smie utility."
+  (forward-comment (point-max))
+  ;; (cond
+  ;;  ((looking-at satysfi-smie-token-regexp)
+  ;;   (goto-char (match-end 0))
+  ;;   (let ((group (car (nth (satysfi-smie-match-group) satysfi-smie-tokens))))
+  ;;     (if (eq group 'keyword)
+  ;;         (upcase (match-string-no-properties 0))
+  ;;       group)))
+  ;;  (t (buffer-substring-no-properties
+  ;;      (point)
+  ;;      (progn (skip-syntax-forward "w_")
+  ;;             (point)))))
+  )
+
+(defun satysfi-smie-backward-token ()
+  "Skip backward as smie utility."
+  (forward-comment (- (point)))
+  ;; (cond
+  ;;  ((looking-back satysfi-smie-token-regexp (- (point) 20) t)
+  ;;   (goto-char (match-beginning 0))
+  ;;   (let ((group (car (nth (satysfi-smie-match-group) satysfi-smie-tokens))))
+  ;;     (if (eq group 'keyword)
+  ;;         (upcase (match-string-no-properties 0))
+  ;;       group)))
+  ;;  (t (buffer-substring-no-properties
+  ;;      (point)
+  ;;      (progn (skip-syntax-backward "w_")
+  ;;             (point)))))
+  )
+
+(defun satysfi-smie-rules (_kind _token)
+  "Additional rule as smie utility.
+KIND TOKEN."
+  ;; (case kind
+  ;;   (:after
+  ;;    (cond
+  ;;     ((equal token ",") (smie-rule-separator kind))
+  ;;     ((equal token "ON") satysfi-smie-indent-basic)))
+  ;;   (:before
+  ;;    (cond
+  ;;     ((equal token ",") (smie-rule-separator kind)))))
+  )
+
 (defvar satysfi-mode-syntax-table
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?% "<" table)
@@ -168,7 +239,12 @@
   (set-syntax-table satysfi-mode-syntax-table)
   (setq-local font-lock-defaults '(satysfi-mode-font-lock-keywords))
   (setq-local comment-start "%")
-  (setq-local electric-indent-chars '(?\n ?{ ?} ?\[ ?\] ?\( ?\))))
+  (setq-local electric-indent-chars '(?\n ?{ ?} ?\[ ?\] ?\( ?\)))
+
+  (smie-setup satysfi-smie-grammar 'satysfi-smie-rules
+              :forward-token 'satysfi-smie-forward-token
+              :backward-token 'satysfi-smie-backward-token)
+  (setq-local smie-indent-basic 2))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.satyh?\\'" . satysfi-mode))
