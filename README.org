@@ -47,7 +47,7 @@ The mode activates automatically when you open a file with =.saty= or =.satyh= e
 
 * Requirements
 
-- Emacs 29.1 or later
+- Emacs 26.1 or later
 
 * Contributing
 
